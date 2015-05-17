@@ -6,6 +6,11 @@ at https://android.googlesource.com/platform/frameworks/opt/colorpicker/+/androi
 A little bit adjusted for better development
 (imported into Android Studio, updated to newest build tools, etc).
 
+###How does it look like?
+![scr1](http://ext.woalk.de/img/github/android-colorpicker-scr1.png)
+The color picker as it is per default, unmodified,
+with the test colors being all static colors in `android.graphics.Color.*`
+
 ###Usage
 ####Include library: Android Studio / Gradle
 Include this project (either manually or via `git submodule`) into your Android app project path.
