@@ -35,7 +35,7 @@ The package name of the library is `com.android.colorpicker`
 
 The simplest way to use the color picker:
 ```java
-mSelectedColor = Colors.BLACK;
+mSelectedColor = Color.BLACK;
 
 ColorPickerDialog dialog = ColorPickerDialog.newInstance(
        R.string.some_title_string, 
