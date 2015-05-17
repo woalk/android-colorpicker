@@ -14,7 +14,7 @@
      limitations under the License.
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.android.colorpicker"
+    package="com.woalk.apps.lib.colorpicker"
     android:versionCode="1"
     android:versionName="1.0" >
 </manifest>

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.colorpicker;
+package com.woalk.apps.lib.colorpicker;
 
 import android.graphics.Color;
 
