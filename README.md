@@ -30,7 +30,7 @@ dependencies {
 ```
 
 ####Use library components
-The package name of the library is `com.android.colorpicker`
+The package name of the library is `com.woalk.apps.lib.colorpicker`
 *(may be different across different branches of this repo)*.
 
 The simplest way to use the color picker:
