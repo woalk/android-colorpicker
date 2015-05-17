@@ -39,12 +39,14 @@ public class ColorPickerDialog extends DialogFragment implements OnColorSelected
     protected AlertDialog mAlertDialog;
 
     protected static final String KEY_TITLE_ID = "title_id";
+    protected static final String KEY_TITLE = "title";
     protected static final String KEY_COLORS = "colors";
     protected static final String KEY_SELECTED_COLOR = "selected_color";
     protected static final String KEY_COLUMNS = "columns";
     protected static final String KEY_SIZE = "size";
 
     protected int mTitleResId = R.string.color_picker_default_title;
+    protected String mTitle = null;
     protected int[] mColors = null;
     protected int mSelectedColor;
     protected int mColumns;
@@ -79,7 +81,27 @@ public class ColorPickerDialog extends DialogFragment implements OnColorSelected
         setArguments(bundle);
     }
 
-    public void setOnColorSelectedListener(OnColorSelectedListener listener) {
+    public static ColorPickerDialog newInstance(String title, int[] colors, int selectedColor,
+                                                int columns, int size) {
+        ColorPickerDialog ret = new ColorPickerDialog();
+        ret.initialize(title, colors, selectedColor, columns, size);
+        return ret;
+    }
+
+    public void initialize(String title, int[] colors, int selectedColor, int columns, int size) {
+        setArguments(title, columns, size);
+        setColors(colors, selectedColor);
+    }
+
+    public void setArguments(String title, int columns, int size) {
+        Bundle bundle = new Bundle();
+        bundle.putString(KEY_TITLE_ID, title);
+        bundle.putInt(KEY_COLUMNS, columns);
+        bundle.putInt(KEY_SIZE, size);
+        setArguments(bundle);
+    }
+
+    public void setOnColorSelectedListener(ColorPickerSwatch.OnColorSelectedListener listener) {
         mListener = listener;
     }
 
@@ -88,7 +110,8 @@ public class ColorPickerDialog extends DialogFragment implements OnColorSelected
         super.onCreate(savedInstanceState);
 
         if (getArguments() != null) {
-            mTitleResId = getArguments().getInt(KEY_TITLE_ID);
+            mTitleResId = getArguments().getInt(KEY_TITLE, R.string.color_picker_default_title);
+            mTitle = getArguments().getString(KEY_TITLE);
             mColumns = getArguments().getInt(KEY_COLUMNS);
             mSize = getArguments().getInt(KEY_SIZE);
         }
@@ -113,7 +136,7 @@ public class ColorPickerDialog extends DialogFragment implements OnColorSelected
         }
 
         mAlertDialog = new AlertDialog.Builder(activity)
-            .setTitle(mTitleResId)
+            .setTitle(mTitle == null ? getText(mTitleResId) : mTitle)
             .setView(view)
             .create();
 
