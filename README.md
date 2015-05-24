@@ -6,6 +6,11 @@ at https://android.googlesource.com/platform/frameworks/opt/colorpicker/+/androi
 A little bit adjusted for better development
 (imported into Android Studio, updated to newest build tools, etc).
 
+###How does it look like?
+![scr1](http://ext.woalk.de/img/github/android-colorpicker-scr1.png)
+The color picker as it is per default, unmodified,
+with the test colors being all static colors in `android.graphics.Color.*`
+
 ###Usage
 ####Include library: Android Studio / Gradle
 Include this project (either manually or via `git submodule`) into your Android app project path.
@@ -29,10 +34,10 @@ dependencies {
 ...
 ```
 
-####Use library components
 The package name of the library is `com.woalk.apps.lib.colorpicker`
 *(may be different across different branches of this repo)*.
 
+####Use `ColorPickerDialog`
 The simplest way to use the color picker:
 ```java
 mSelectedColor = Color.BLACK;
@@ -59,6 +64,57 @@ dialog.show(getFragmentManager(), "some_tag");
 The `OnColorSelectedListener` will be called when the user clicks on a color.
 `color` will contain the selected color value (`0xAARRGGBB`).
 
+####Use `ColorPreference`
+The library comes with a pre-written `Preference` class to use with a `PreferenceScreen` (i.e. `PreferenceActivity` or `PreferenceFragment`).
+
+![scr2](http://ext.woalk.de/img/github/android-colorpicker-scr2.png)
+
+Simply add it like this to your `preferences.xml`:
+```xml
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+                  xmlns:woalk="http://schemas.android.com/apk/res-auto">
+
+    <com.woalk.apps.lib.colorpicker.ColorPreference
+        android:key="pref_example"
+        android:title="@string/example_title"
+        android:summary="@string/example_summary"
+        woalk:colors="@array/colors"
+        woalk:columns="3"
+        android:defaultValue="@color/bk" />
+
+</PreferenceScreen>
+```
+
+You can name the namespace defined in the second line (`xmlns:woalk...`) as you like.
+You just have to name it everywhere in the file the same.
+
+You should reference an `integer-array` for `woalk:colors`,
+containing either full integer colors (`0xAARRGGBB`) or `color` references, like this:
+```xml
+<resources>
+    <integer-array name="colors">
+        <item>@color/bk</item>
+        <item>@color/r</item>
+        <item>@color/g</item>
+        <item>@color/b</item>
+        <item>@color/y</item>
+        <item>@color/m</item>
+        <item>@color/c</item>
+        <item>@color/w</item>
+    </integer-array>
+
+    <color name="bk">#000</color>
+    <color name="r">#f00</color>
+    <color name="g">#0f0</color>
+    <color name="b">#00f</color>
+    <color name="y">#ff0</color>
+    <color name="m">#f0f</color>
+    <color name="c">#0ff</color>
+    <color name="w">#fff</color>
+</resources>
+```
+
+*There will be extensions of the existing features in the future.*
 
 ```
 (C) 2013  The Android Open Source Project
