@@ -27,6 +27,7 @@ public class ColorPreference extends Preference implements ColorPickerSwatch
     private int mCurrentValue;
     private int[] mColors;
     private int mColumns;
+    private boolean mAllowCustomColor;
 
     private View mColorView;
 
@@ -41,6 +42,7 @@ public class ColorPreference extends Preference implements ColorPickerSwatch
                 mColors = getContext().getResources().getIntArray(id);
             }
             mColumns = a.getInt(R.styleable.ColorPreference_columns, 2);
+            mAllowCustomColor = a.getBoolean(R.styleable.ColorPreference_allowCustomColor, false);
         } finally {
             a.recycle();
         }
@@ -86,7 +88,7 @@ public class ColorPreference extends Preference implements ColorPickerSwatch
         int[] colors = mColors.length != 0 ? mColors : new int[]{Color.BLACK, Color.WHITE, Color
                 .RED, Color.GREEN, Color.BLUE};
         ColorPickerDialog d = ColorPickerDialog.newInstance("TEST", colors, mCurrentValue, mColumns,
-                ColorPickerDialog.SIZE_SMALL);
+                ColorPickerDialog.SIZE_SMALL, mAllowCustomColor);
         d.setOnColorSelectedListener(this);
         d.show(((Activity) getContext()).getFragmentManager(), null);
     }
@@ -196,6 +198,12 @@ public class ColorPreference extends Preference implements ColorPickerSwatch
                 };
     }
 
+    /**
+     * Convert a dp size to pixel.
+     * Useful for specifying view sizes in code.
+     * @param dp The size in density-independent pixels.
+     * @return {@code px} - The size in generic pixels (density-dependent).
+     */
     private float dpToPx(float dp) {
         return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
                 getContext().getResources().getDisplayMetrics());

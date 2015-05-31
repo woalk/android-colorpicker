@@ -64,6 +64,9 @@ dialog.show(getFragmentManager(), "some_tag");
 The `OnColorSelectedListener` will be called when the user clicks on a color.
 `color` will contain the selected color value (`0xAARRGGBB`).
 
+You can add an `EditText` to enter a custom color hex code by adding `true` as the last value to the contructor.
+Clicking 'Done' on the keyboard will trigger the `OnColorSelectedListener` as usual.
+
 ####Use `ColorPreference`
 The library comes with a pre-written `Preference` class to use with a `PreferenceScreen` (i.e. `PreferenceActivity` or `PreferenceFragment`).
 
@@ -80,6 +83,7 @@ Simply add it like this to your `preferences.xml`:
         android:summary="@string/example_summary"
         woalk:colors="@array/colors"
         woalk:columns="3"
+        woalk:allowCustomColor="false"
         android:defaultValue="@color/bk" />
 
 </PreferenceScreen>
@@ -113,6 +117,15 @@ containing either full integer colors (`0xAARRGGBB`) or `color` references, like
     <color name="w">#fff</color>
 </resources>
 ```
+
+Change `woalk:allowCustomColors` to `true` to enable the `EditText` for custom colors.
+
+####There are string in this project that are not translated yet.
+Feel free to translate them in your language (or any other language you know well enough).
+It would be very nice if you would pull-request these additions to this project, so I can complete the translations.
+*Thank you!*
+
+
 
 *There will be extensions of the existing features in the future.*
 

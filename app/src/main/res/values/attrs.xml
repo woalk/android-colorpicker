@@ -3,5 +3,6 @@
     <declare-styleable name="ColorPreference">
         <attr name="colors" format="reference" />
         <attr name="columns" format="integer" />
+        <attr name="allowCustomColor" format="boolean" />
     </declare-styleable>
 </resources>
