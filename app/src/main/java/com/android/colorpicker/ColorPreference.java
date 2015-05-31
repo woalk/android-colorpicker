@@ -198,6 +198,12 @@ public class ColorPreference extends Preference implements ColorPickerSwatch
                 };
     }
 
+    /**
+     * Convert a dp size to pixel.
+     * Useful for specifying view sizes in code.
+     * @param dp The size in density-independent pixels.
+     * @return {@code px} - The size in generic pixels (density-dependent).
+     */
     private float dpToPx(float dp) {
         return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
                 getContext().getResources().getDisplayMetrics());

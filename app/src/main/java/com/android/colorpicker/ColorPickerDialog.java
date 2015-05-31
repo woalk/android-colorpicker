@@ -65,10 +65,24 @@ public class ColorPickerDialog extends DialogFragment implements OnColorSelected
 
     protected OnColorSelectedListener mListener;
 
+    /**
+     * New instance of {@link ColorPickerDialog}.
+     * Do not use the constructor outside of the library.
+     * Use one of {@link #newInstance} instead.
+     */
     public ColorPickerDialog() {
         // Empty constructor required for dialog fragments.
     }
 
+    /**
+     * Obtain a new instance of {@link ColorPickerDialog} to use it.
+     * @param titleResId The resource id of the dialog title to show.
+     * @param colors A color array, containing all colors that should be selectable in this dialog.
+     * @param selectedColor The currently selected color (or the default color).
+     * @param columns The number of columns of {@code ColorPickerSwatches} to use in the dialog.
+     * @param size The dialog size. This should be one of {@code SIZE_LARGE}, {@code SIZE_SMALL}.
+     * @return The {@link ColorPickerDialog} instance requested.
+     */
     public static ColorPickerDialog newInstance(int titleResId, int[] colors, int selectedColor,
             int columns, int size) {
         ColorPickerDialog ret = new ColorPickerDialog();
@@ -89,6 +103,15 @@ public class ColorPickerDialog extends DialogFragment implements OnColorSelected
         setArguments(bundle);
     }
 
+    /**
+     * Obtain a new instance of {@link ColorPickerDialog} to use it.
+     * @param title The string to use as dialog title.
+     * @param colors A color array, containing all colors that should be selectable in this dialog.
+     * @param selectedColor The currently selected color (or the default color).
+     * @param columns The number of columns of {@code ColorPickerSwatches} to use in the dialog.
+     * @param size The dialog size. This should be one of {@code SIZE_LARGE}, {@code SIZE_SMALL}.
+     * @return The {@link ColorPickerDialog} instance requested.
+     */
     public static ColorPickerDialog newInstance(String title, int[] colors, int selectedColor,
                                                 int columns, int size) {
         ColorPickerDialog ret = new ColorPickerDialog();
@@ -109,10 +132,21 @@ public class ColorPickerDialog extends DialogFragment implements OnColorSelected
         setArguments(bundle);
     }
 
+    /**
+     * Obtain a new instance of {@link ColorPickerDialog} to use it.
+     * @param title The resource id of the dialog title to show.
+     * @param colors A color array, containing all colors that should be selectable in this dialog.
+     * @param selectedColor The currently selected color (or the default color).
+     * @param columns The number of columns of {@code ColorPickerSwatches} to use in the dialog.
+     * @param size The dialog size. This should be one of {@code SIZE_LARGE}, {@code SIZE_SMALL}.
+     * @param allowCustomColor Specify {@code true} to show an {@link EditText} to enter a color
+     *                         hex code manually. The default is {@code false}.
+     * @return The {@link ColorPickerDialog} instance requested.
+     */
     public static ColorPickerDialog newInstance(String title, int[] colors, int selectedColor,
-                                                int columns, int size, boolean allowCustomCOlor) {
+                                                int columns, int size, boolean allowCustomColor) {
         ColorPickerDialog ret = new ColorPickerDialog();
-        ret.initialize(title, colors, selectedColor, columns, size, allowCustomCOlor);
+        ret.initialize(title, colors, selectedColor, columns, size, allowCustomColor);
         return ret;
     }
 
@@ -131,6 +165,10 @@ public class ColorPickerDialog extends DialogFragment implements OnColorSelected
         setArguments(bundle);
     }
 
+    /**
+     * Set the {@link OnColorSelectedListener}, called when the user selects a color in the dialog.
+     * @param listener The listener to set.
+     */
     public void setOnColorSelectedListener(ColorPickerSwatch.OnColorSelectedListener listener) {
         mListener = listener;
     }
@@ -220,6 +258,10 @@ public class ColorPickerDialog extends DialogFragment implements OnColorSelected
         dismiss();
     }
 
+    /**
+     * Show the palette view and hide the {@link ProgressBar}.
+     * Should be called when a loading operation completed.
+     */
     public void showPaletteView() {
         if (mProgress != null && mPalette != null) {
             mProgress.setVisibility(View.GONE);
@@ -228,6 +270,10 @@ public class ColorPickerDialog extends DialogFragment implements OnColorSelected
         }
     }
 
+    /**
+     * Show a spinning {@link ProgressBar} to indicate a loading condition.
+     * Hide the {@code ProgressBar} again with {@link #showPaletteView()}.
+     */
     public void showProgressBarView() {
         if (mProgress != null && mPalette != null) {
             mProgress.setVisibility(View.VISIBLE);
@@ -235,6 +281,11 @@ public class ColorPickerDialog extends DialogFragment implements OnColorSelected
         }
     }
 
+    /**
+     * Change the colors displayed in the dialog.
+     * @param colors A color array, containing all colors that should be selectable in this dialog.
+     * @param selectedColor The currently selected color (or the default color).
+     */
     public void setColors(int[] colors, int selectedColor) {
         if (mColors != colors || mSelectedColor != selectedColor) {
             mColors = colors;
@@ -243,6 +294,10 @@ public class ColorPickerDialog extends DialogFragment implements OnColorSelected
         }
     }
 
+    /**
+     * Change the colors displayed in the dialog.
+     * @param colors A color array, containing all colors that should be selectable in this dialog.
+     */
     public void setColors(int[] colors) {
         if (mColors != colors) {
             mColors = colors;
@@ -250,6 +305,10 @@ public class ColorPickerDialog extends DialogFragment implements OnColorSelected
         }
     }
 
+    /**
+     * Change the currently selected color.
+     * @param color The color int to set.
+     */
     public void setSelectedColor(int color) {
         if (mSelectedColor != color) {
             mSelectedColor = color;
@@ -263,10 +322,18 @@ public class ColorPickerDialog extends DialogFragment implements OnColorSelected
         }
     }
 
+    /**
+     * Get the colors displayed in this dialog.
+     * @return A color array, containing all colors that are selectable in this dialog.
+     */
     public int[] getColors() {
         return mColors;
     }
 
+    /**
+     * Get the currently selected color.
+     * @return A color int representing the selected color.
+     */
     public int getSelectedColor() {
         return mSelectedColor;
     }
