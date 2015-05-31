@@ -120,6 +120,12 @@ containing either full integer colors (`0xAARRGGBB`) or `color` references, like
 
 Change `woalk:allowCustomColors` to `true` to enable the `EditText` for custom colors.
 
+####There are string in this project that are not translated yet.
+Feel free to translate them in your language (or any other language you know well enough).
+It would be very nice if you would pull-request these additions to this project, so I can complete the translations.
+*Thank you!*
+
+
 
 *There will be extensions of the existing features in the future.*
 
