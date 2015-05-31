@@ -50,6 +50,7 @@ public class ColorPickerDialog extends DialogFragment implements OnColorSelected
     protected static final String KEY_SELECTED_COLOR = "selected_color";
     protected static final String KEY_COLUMNS = "columns";
     protected static final String KEY_SIZE = "size";
+    protected static final String KEY_CUSTOM_COLOR = "allow_custom";
 
     protected int mTitleResId = R.string.color_picker_default_title;
     protected String mTitle = null;
@@ -57,6 +58,7 @@ public class ColorPickerDialog extends DialogFragment implements OnColorSelected
     protected int mSelectedColor;
     protected int mColumns;
     protected int mSize;
+    protected boolean mAllowCustomColor = false;
 
     private ColorPickerPalette mPalette;
     private ProgressBar mProgress;
@@ -107,6 +109,28 @@ public class ColorPickerDialog extends DialogFragment implements OnColorSelected
         setArguments(bundle);
     }
 
+    public static ColorPickerDialog newInstance(String title, int[] colors, int selectedColor,
+                                                int columns, int size, boolean allowCustomCOlor) {
+        ColorPickerDialog ret = new ColorPickerDialog();
+        ret.initialize(title, colors, selectedColor, columns, size, allowCustomCOlor);
+        return ret;
+    }
+
+    public void initialize(String title, int[] colors, int selectedColor, int columns, int size,
+                           boolean allowCustomColor) {
+        setArguments(title, columns, size, allowCustomColor);
+        setColors(colors, selectedColor);
+    }
+
+    public void setArguments(String title, int columns, int size, boolean allowCustomColor) {
+        Bundle bundle = new Bundle();
+        bundle.putString(KEY_TITLE_ID, title);
+        bundle.putInt(KEY_COLUMNS, columns);
+        bundle.putInt(KEY_SIZE, size);
+        bundle.putBoolean(KEY_CUSTOM_COLOR, allowCustomColor);
+        setArguments(bundle);
+    }
+
     public void setOnColorSelectedListener(ColorPickerSwatch.OnColorSelectedListener listener) {
         mListener = listener;
     }
@@ -120,6 +144,7 @@ public class ColorPickerDialog extends DialogFragment implements OnColorSelected
             mTitle = getArguments().getString(KEY_TITLE);
             mColumns = getArguments().getInt(KEY_COLUMNS);
             mSize = getArguments().getInt(KEY_SIZE);
+            mAllowCustomColor = getArguments().getBoolean(KEY_CUSTOM_COLOR);
         }
 
         if (savedInstanceState != null) {
@@ -142,11 +167,17 @@ public class ColorPickerDialog extends DialogFragment implements OnColorSelected
         }
 
         mAlertDialog = new AlertDialog.Builder(activity)
-            .setTitle(mTitle == null ? getText(mTitleResId) : mTitle)
-            .setView(view)
-            .create();
+                .setTitle(mTitle == null ? getText(mTitleResId) : mTitle)
+                .setView(view)
+                .create();
 
-        ((EditText) view.findViewById(android.R.id.edit)).setOnEditorActionListener(new TextView
+        EditText customColorField = (EditText) view.findViewById(android.R.id.edit);
+
+        if (mAllowCustomColor) {
+            customColorField.setVisibility(View.VISIBLE);
+        }
+
+        customColorField.setOnEditorActionListener(new TextView
                 .OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {

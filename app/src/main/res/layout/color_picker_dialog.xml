@@ -57,6 +57,7 @@
         android:layout_height="wrap_content"
         android:hint="@string/color_picker_manual_color_hint"
         android:imeActionId="10"
+        android:visibility="gone"
         android:imeOptions="actionDone"/>
 
 </LinearLayout>
