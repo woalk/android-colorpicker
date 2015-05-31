@@ -13,10 +13,17 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent" >
+
+<ScrollView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     android:gravity="center" >
 
     <FrameLayout
@@ -43,3 +50,13 @@
             android:visibility="gone" />
     </FrameLayout>
 </ScrollView>
+
+    <EditText
+        android:id="@android:id/edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/color_picker_manual_color_hint"
+        android:imeActionId="10"
+        android:imeOptions="actionDone"/>
+
+</LinearLayout>

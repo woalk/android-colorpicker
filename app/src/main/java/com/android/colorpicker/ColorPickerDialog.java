@@ -20,10 +20,16 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.android.colorpicker.ColorPickerSwatch.OnColorSelectedListener;
 
@@ -139,6 +145,25 @@ public class ColorPickerDialog extends DialogFragment implements OnColorSelected
             .setTitle(mTitle == null ? getText(mTitleResId) : mTitle)
             .setView(view)
             .create();
+
+        ((EditText) view.findViewById(android.R.id.edit)).setOnEditorActionListener(new TextView
+                .OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == 10 && event.getAction() == EditorInfo.IME_ACTION_DONE) {
+                    if (!v.getText().toString().startsWith("#") && v.getText().toString()
+                            .matches(".*\\d.*")) {
+                        v.setText("#" + v.getText());
+                    }
+                    try {
+                        onColorSelected(Color.parseColor(v.getText().toString()));
+                    } catch (Throwable e) {
+                        v.setTextColor(Color.RED);
+                    }
+                }
+                return false;
+            }
+        });
 
         return mAlertDialog;
     }
