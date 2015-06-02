@@ -81,6 +81,7 @@ Simply add it like this to your `preferences.xml`:
         android:key="pref_example"
         android:title="@string/example_title"
         android:summary="@string/example_summary"
+        woalk:dialogTitle="@string/example_dialog_title"
         woalk:colors="@array/colors"
         woalk:columns="3"
         woalk:allowCustomColor="false"
@@ -119,6 +120,12 @@ containing either full integer colors (`0xAARRGGBB`) or `color` references, like
 ```
 
 Change `woalk:allowCustomColors` to `true` to enable the `EditText` for custom colors.
+
+####Use other small things in this library
+#####`parseColor(String)
+There is the static method `ColorPickerDialog.parseColorString(colorString)`.
+It is a modified version of [`Color.parseColor(colorString)`](http://developer.android.com/reference/android/graphics/Color.html#parseColor(java.lang.String)), it is capable of parsing more color string types (`#RGB`, `#ARGB`).
+
 
 ####There are string in this project that are not translated yet.
 Feel free to translate them in your language (or any other language you know well enough).
