@@ -229,8 +229,9 @@ public class ColorPickerDialog extends DialogFragment implements OnColorSelected
                 if (text.equals("")) {
                     dismiss();
                     return;
-                } else if (!text.startsWith("#") && text.matches(".*\\d.*")) {
-                    customColorField.setText("#" + customColorField.getText());
+                } else if (!text.startsWith("#") && text.matches("^[0-9A-Fa-f]+$")) {
+                    text = "#" + customColorField.getText();
+                    customColorField.setText(text);
                 }
                 try {
                     onColorSelected(parseColor(text));
