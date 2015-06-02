@@ -81,6 +81,7 @@ Simply add it like this to your `preferences.xml`:
         android:key="pref_example"
         android:title="@string/example_title"
         android:summary="@string/example_summary"
+        woalk:dialogTitle="@string/example_dialog_title"
         woalk:colors="@array/colors"
         woalk:columns="3"
         woalk:allowCustomColor="false"
