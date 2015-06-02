@@ -163,7 +163,7 @@ public class ColorPickerDialog extends DialogFragment implements OnColorSelected
 
     public void setArguments(String title, int columns, int size, boolean allowCustomColor) {
         Bundle bundle = new Bundle();
-        bundle.putString(KEY_TITLE_ID, title);
+        bundle.putString(KEY_TITLE, title);
         bundle.putInt(KEY_COLUMNS, columns);
         bundle.putInt(KEY_SIZE, size);
         bundle.putBoolean(KEY_CUSTOM_COLOR, allowCustomColor);
