@@ -120,6 +120,12 @@ containing either full integer colors (`0xAARRGGBB`) or `color` references, like
 
 Change `woalk:allowCustomColors` to `true` to enable the `EditText` for custom colors.
 
+####Use other small things in this library
+#####`parseColor(String)
+There is the static method `ColorPickerDialog.parseColorString(colorString)`.
+It is a modified version of [`Color.parseColor(colorString)`](http://developer.android.com/reference/android/graphics/Color.html#parseColor(java.lang.String)), it is capable of parsing more color string types (`#RGB`, `#ARGB`).
+
+
 ####There are string in this project that are not translated yet.
 Feel free to translate them in your language (or any other language you know well enough).
 It would be very nice if you would pull-request these additions to this project, so I can complete the translations.
