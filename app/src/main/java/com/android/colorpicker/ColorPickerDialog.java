@@ -35,6 +35,9 @@ import android.widget.TextView;
 
 import com.android.colorpicker.ColorPickerSwatch.OnColorSelectedListener;
 
+import java.util.HashMap;
+import java.util.Locale;
+
 /**
  * A dialog which takes in as input an array of colors and creates a palette allowing the user to
  * select a specific color swatch, which invokes a listener.
@@ -230,7 +233,7 @@ public class ColorPickerDialog extends DialogFragment implements OnColorSelected
                     customColorField.setText("#" + customColorField.getText());
                 }
                 try {
-                    onColorSelected(Color.parseColor(text));
+                    onColorSelected(parseColor(text));
                 } catch (Throwable e) {
                     customColorField.setTextColor(Color.RED);
                 }
@@ -363,5 +366,113 @@ public class ColorPickerDialog extends DialogFragment implements OnColorSelected
         super.onSaveInstanceState(outState);
         outState.putIntArray(KEY_COLORS, mColors);
         outState.putSerializable(KEY_SELECTED_COLOR, mSelectedColor);
+    }
+
+    /**
+     * <i>A modification of {@link Color#parseColor(String)}.</i>
+     * <br/><br/>
+     * Parse the color string into a usable color int.
+     * <br/><br/>
+     * <b>Supported formats are:</b>
+     * <ul>
+     * <li>{@code #RGB}</li>
+     * <li>{@code #ARGB}</li>
+     * <li>{@code #RRGGBB}</li>
+     * <li>{@code #AARRGGBB}</li>
+     * <li>One of the color names
+     * 'red', 'blue', 'green', 'black', 'white', 'gray', 'cyan', 'magenta',
+     * 'yellow', 'lightgray', 'darkgray', 'grey', 'lightgrey', 'darkgrey',
+     * 'aqua', 'fuchsia', 'lime', 'maroon', 'navy', 'olive', 'purple',
+     * 'silver', 'teal'</li>
+     *
+     * @param colorString The color string in one of the above formats.
+     * @return The requested color int {@code (0xAARRGGBB)}.
+     * @throws IllegalArgumentException When the color string provided is invalid.
+     */
+    public static int parseColor(String colorString) throws IllegalArgumentException {
+        if (colorString.charAt(0) == '#') {
+            String colorStr = colorString.substring(1);
+            String s_a; String s_r; String s_g; String s_b;
+            int a; int r; int g; int b;
+            switch (colorStr.length()) {
+                case 3:
+                    s_r = colorStr.substring(0, 1); // each digit is one color (#RGB)
+                    s_g = colorStr.substring(1, 2);
+                    s_b = colorStr.substring(2, 3);
+                    a = 0xff; // fixed alpha full 255 (opaque)
+                    r = Integer.parseInt(s_r + s_r, 16); // each digit represents the number twice
+                    g = Integer.parseInt(s_g + s_g, 16); // (#123 == #112233)
+                    b = Integer.parseInt(s_b + s_b, 16);
+                    break;
+                case 4:
+                    s_a = colorStr.substring(0, 1); // each digit is one color or alpha (#ARGB)
+                    s_r = colorStr.substring(1, 2);
+                    s_g = colorStr.substring(2, 3);
+                    s_b = colorStr.substring(3, 4);
+                    a = Integer.parseInt(s_a + s_a, 16); // each digit represents the number twice
+                    r = Integer.parseInt(s_r + s_r, 16); // (#1234 == #11223344)
+                    g = Integer.parseInt(s_g + s_g, 16);
+                    b = Integer.parseInt(s_b + s_b, 16);
+                    break;
+                case 6:
+                    s_r = colorStr.substring(0, 2); // full color notation without alpha (#RRGGBB)
+                    s_g = colorStr.substring(2, 4);
+                    s_b = colorStr.substring(4, 6);
+                    a = 0xff; // fixed alpha full 255 (opaque)
+                    r = Integer.parseInt(s_r, 16);
+                    g = Integer.parseInt(s_g, 16);
+                    b = Integer.parseInt(s_b, 16);
+                    break;
+                case 8:
+                    s_a = colorStr.substring(0, 2); // full color notation with alpha (#AARRGGBB)
+                    s_r = colorStr.substring(2, 4);
+                    s_g = colorStr.substring(4, 6);
+                    s_b = colorStr.substring(6, 8);
+                    a = Integer.parseInt(s_a, 16);
+                    r = Integer.parseInt(s_r, 16);
+                    g = Integer.parseInt(s_g, 16);
+                    b = Integer.parseInt(s_b, 16);
+                    break;
+                default:
+                    throw new IllegalArgumentException("Unknown color");
+            }
+            return Color.argb(a, r, g, b); // Return color int of a, r, g, b (last parse by system)
+        } else {
+            Integer color = sColorNameMap.get(colorString.toLowerCase(Locale.ROOT));
+            if (color != null) {
+                return color;
+            }
+        }
+        throw new IllegalArgumentException("Unknown color");
+    }
+
+    /** A color name list for possible parse-by-name in {@link #parseColor(String)}. */
+    private static final HashMap<String, Integer> sColorNameMap;
+    static {
+        sColorNameMap = new HashMap<String, Integer>();
+        sColorNameMap.put("black", Color.BLACK);
+        sColorNameMap.put("darkgray", Color.DKGRAY);
+        sColorNameMap.put("gray", Color.GRAY);
+        sColorNameMap.put("lightgray", Color.LTGRAY);
+        sColorNameMap.put("white", Color.WHITE);
+        sColorNameMap.put("red", Color.RED);
+        sColorNameMap.put("green", Color.GREEN);
+        sColorNameMap.put("blue", Color.BLUE);
+        sColorNameMap.put("yellow", Color.YELLOW);
+        sColorNameMap.put("cyan", Color.CYAN);
+        sColorNameMap.put("magenta", Color.MAGENTA);
+        sColorNameMap.put("aqua", 0xFF00FFFF);
+        sColorNameMap.put("fuchsia", 0xFFFF00FF);
+        sColorNameMap.put("darkgrey", Color.DKGRAY);
+        sColorNameMap.put("grey", Color.GRAY);
+        sColorNameMap.put("lightgrey", Color.LTGRAY);
+        sColorNameMap.put("lime", 0xFF00FF00);
+        sColorNameMap.put("maroon", 0xFF800000);
+        sColorNameMap.put("navy", 0xFF000080);
+        sColorNameMap.put("olive", 0xFF808000);
+        sColorNameMap.put("purple", 0xFF800080);
+        sColorNameMap.put("silver", 0xFFC0C0C0);
+        sColorNameMap.put("teal", 0xFF008080);
+
     }
 }
