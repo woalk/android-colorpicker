@@ -44,7 +44,7 @@ public class ColorPreference extends Preference implements ColorPickerSwatch
             }
             id = a.getResourceId(R.styleable.ColorPreference_dialogTitle, 0);
             if (id != 0) {
-                mTitle = a.getString(id);
+                mTitle = getContext().getResources().getString(id);
             } else { // use string
                 mTitle = a.getString(R.styleable.ColorPreference_dialogTitle);
                 if (mTitle == null) {
