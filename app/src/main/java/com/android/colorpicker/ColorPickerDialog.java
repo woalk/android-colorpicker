@@ -23,10 +23,12 @@ import android.app.DialogFragment;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -209,28 +211,46 @@ public class ColorPickerDialog extends DialogFragment implements OnColorSelected
                 .setView(view)
                 .create();
 
-        EditText customColorField = (EditText) view.findViewById(android.R.id.edit);
+        View customColorContainer = view.findViewById(android.R.id.custom);
+        final EditText customColorField = (EditText) view.findViewById(android.R.id.edit);
+        Button customColorOKButton = (Button) view.findViewById(android.R.id.button1);
 
         if (mAllowCustomColor) {
-            customColorField.setVisibility(View.VISIBLE);
+            customColorContainer.setVisibility(View.VISIBLE);
         }
 
-        customColorField.setOnEditorActionListener(new TextView
-                .OnEditorActionListener() {
+        customColorOKButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == 10 && event.getAction() == EditorInfo.IME_ACTION_DONE) {
-                    if (!v.getText().toString().startsWith("#") && v.getText().toString()
-                            .matches(".*\\d.*")) {
-                        v.setText("#" + v.getText());
-                    }
-                    try {
-                        onColorSelected(Color.parseColor(v.getText().toString()));
-                    } catch (Throwable e) {
-                        v.setTextColor(Color.RED);
-                    }
+            public void onClick(View v) {
+                String text = customColorField.getText().toString();
+                if (text.equals("")) {
+                    dismiss();
+                    return;
+                } else if (!text.startsWith("#") && text.matches(".*\\d.*")) {
+                    customColorField.setText("#" + customColorField.getText());
                 }
-                return false;
+                try {
+                    onColorSelected(Color.parseColor(text));
+                } catch (Throwable e) {
+                    customColorField.setTextColor(Color.RED);
+                }
+            }
+        });
+        customColorField.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                customColorField.setTextColor(getResources().getColor(android.R.color
+                        .primary_text_light));
             }
         });
 
