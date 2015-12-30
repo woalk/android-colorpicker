@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="ColorPreference">
-        <attr name="dialogTitle" format="string|reference" />
-        <attr name="colors" format="reference" />
-        <attr name="columns" format="integer" />
-        <attr name="allowCustomColor" format="boolean" />
+        <attr name="acpDialogTitle" format="string|reference" />
+        <attr name="acpColors" format="reference" />
+        <attr name="acpColumns" format="integer" />
+        <attr name="acpAllowCustomColor" format="boolean" />
     </declare-styleable>
 </resources>
