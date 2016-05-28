@@ -3,7 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/android-colorpicker.iml" filepath="$PROJECT_DIR$/android-colorpicker.iml" />
-      <module fileurl="file://$USER_HOME$/Documents/AndroidStudioProjects/android-colorpicker/app/app.iml" filepath="$USER_HOME$/Documents/AndroidStudioProjects/android-colorpicker/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../AndroidStudioProjects/android-colorpicker/app/app.iml" filepath="$PROJECT_DIR$/../../AndroidStudioProjects/android-colorpicker/app/app.iml" />
     </modules>
   </component>
 </project>
