@@ -76,25 +76,25 @@ The library comes with a pre-written `Preference` class to use with a `Preferenc
 Simply add it like this to your `preferences.xml`:
 ```xml
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-                  xmlns:woalk="http://schemas.android.com/apk/res-auto">
+                  xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.woalk.apps.lib.colorpicker.ColorPreference
         android:key="pref_example"
         android:title="@string/example_title"
         android:summary="@string/example_summary"
-        woalk:dialogTitle="@string/example_dialog_title"
-        woalk:colors="@array/colors"
-        woalk:columns="3"
-        woalk:allowCustomColor="false"
+        app:picker_dialogTitle="@string/example_dialog_title"
+        app:picker_colors="@array/colors"
+        app:picker_columns="3"
+        app:picker_allowCustomColor="false"
         android:defaultValue="@color/bk" />
 
 </PreferenceScreen>
 ```
 
-You can name the namespace defined in the second line (`xmlns:woalk...`) as you like.
+You can name the namespace defined in the second line (`xmlns:app...`) as you like.
 You just have to name it everywhere in the file the same.
 
-You should reference an `integer-array` for `woalk:colors`,
+You should reference an `integer-array` for `app:picker_colors`,
 containing either full integer colors (`0xAARRGGBB`) or `color` references, like this:
 ```xml
 <resources>
@@ -120,7 +120,7 @@ containing either full integer colors (`0xAARRGGBB`) or `color` references, like
 </resources>
 ```
 
-Change `woalk:allowCustomColors` to `true` to enable the `EditText` for custom colors.
+Change `app:picker_allowCustomColors` to `true` to enable the `EditText` for custom colors.
 
 ####Use other small things in this library
 #####`parseColor(String)

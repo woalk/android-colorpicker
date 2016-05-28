@@ -38,22 +38,22 @@ public class ColorPreference extends Preference implements ColorPickerSwatch
         TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable
                 .ColorPreference, 0, 0);
         try {
-            int id = a.getResourceId(R.styleable.ColorPreference_colors, 0);
+            int id = a.getResourceId(R.styleable.ColorPreference_picker_colors, 0);
             if (id != 0) {
                 mColors = getContext().getResources().getIntArray(id);
             }
-            id = a.getResourceId(R.styleable.ColorPreference_dialogTitle, 0);
+            id = a.getResourceId(R.styleable.ColorPreference_picker_dialogTitle, 0);
             if (id != 0) {
                 mTitle = getContext().getResources().getString(id);
             } else { // use string
-                mTitle = a.getString(R.styleable.ColorPreference_dialogTitle);
+                mTitle = a.getString(R.styleable.ColorPreference_picker_dialogTitle);
                 if (mTitle == null) {
                     mTitle = getContext().getResources().getString(R.string
                             .color_picker_default_title);
                 }
             }
-            mColumns = a.getInt(R.styleable.ColorPreference_columns, 2);
-            mAllowCustomColor = a.getBoolean(R.styleable.ColorPreference_allowCustomColor, false);
+            mColumns = a.getInt(R.styleable.ColorPreference_picker_columns, 2);
+            mAllowCustomColor = a.getBoolean(R.styleable.ColorPreference_picker_allowCustomColor, false);
         } finally {
             a.recycle();
         }
