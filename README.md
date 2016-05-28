@@ -1,7 +1,8 @@
 #Android Stock Color Picker Library [![Build Status](https://travis-ci.org/woalk/android-colorpicker.svg?branch=woalk%2Fmaster)](https://travis-ci.org/woalk/android-colorpicker)
 ## This is an original color picker written by Google/Android.
 Cloned from original source
-at https://android.googlesource.com/platform/frameworks/opt/colorpicker/+/android-5.1.1\_r2/
+at https://android.googlesource.com/platform/frameworks/opt/colorpicker/
+from the branch `android-5.1.1_r2`, which does not exist anymore.
 
 A little bit adjusted for better development
 (imported into Android Studio, updated to newest build tools, etc).
